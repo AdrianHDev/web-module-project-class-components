@@ -2,11 +2,6 @@ import React from "react";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
 
-const defaultTask = {
-  task: "test",
-  id: 0,
-  completed: false,
-};
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -14,7 +9,7 @@ class App extends React.Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
   constructor() {
     super();
-    this.state = { tasks: [defaultTask], formField: "" };
+    this.state = { tasks: [], formField: "" };
   }
 
   clearCompleteTasks = (ev) => {
@@ -29,7 +24,20 @@ class App extends React.Component {
   };
 
   handleFormChange = (ev) => {
-    this.setState({formField: ev.target.value})
+    this.setState({ formField: ev.target.value });
+  };
+
+  addTaskToList = (ev) => {
+    if (this.state.formField !== "") {
+      ev.preventDefault();
+      this.setState({
+        tasks: [
+          ...this.state.tasks,
+          { task: this.state.formField, id: Date.now(), completed: false },
+        ],
+      });
+      this.setState({ formField: "" });
+    }
   };
 
   toggleTask = (taskId) => {
@@ -45,6 +53,7 @@ class App extends React.Component {
         <h2>Welcome to your Todo App!</h2>
         <TodoList toggleTask={this.toggleTask} tasks={this.state.tasks} />
         <TodoForm
+          addTaskToList={this.addTaskToList}
           handleFormChange={this.handleFormChange}
           formField={this.state.formField}
           clearCompleteTasks={this.clearCompleteTasks}
