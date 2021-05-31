@@ -1,9 +1,9 @@
 import React from "react";
-import TodoList from "./components/TodoList"
-import TodoForm from "./components/TodoForm"
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
 
 const defaultTask = {
-  task: "",
+  task: "test",
   id: 0,
   completed: false,
 };
@@ -17,24 +17,33 @@ class App extends React.Component {
     this.state = { tasks: [defaultTask] };
   }
 
-  clearCompleteTasks = ev => {
+  clearCompleteTasks = (ev) => {
     ev.preventDefault();
     console.log(ev);
-    this.setState(state => {
-      return {tasks: state.tasks.filter(task => {
-        return task.completed === true;
-      })}
-    })
-  }
+    this.setState((state) => {
+      return {
+        tasks: state.tasks.filter((task) => {
+          return task.completed === true;
+        }),
+      };
+    });
+  };
 
-
+  toggleTask = (taskId ) => {
+    let tasks = [...this.state.tasks];
+    console.log(tasks);
+    let taskIndex = tasks.findIndex(task => task.id === Number(taskId));
+    console.log(tasks, taskIndex, taskId)
+    tasks[taskIndex].completed = !tasks[taskIndex].completed 
+    this.setState({ tasks });
+  };
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList tasks={this.state.tasks}/>
-        <TodoForm clearCompleteTasks={this.clearCompleteTasks}/>
+        <TodoList toggleTask={this.toggleTask} tasks={this.state.tasks} />
+        <TodoForm clearCompleteTasks={this.clearCompleteTasks} />
       </div>
     );
   }
