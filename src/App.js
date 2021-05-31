@@ -28,8 +28,8 @@ class App extends React.Component {
   };
 
   addTaskToList = (ev) => {
+    ev.preventDefault();
     if (this.state.formField !== "") {
-      ev.preventDefault();
       this.setState({
         tasks: [
           ...this.state.tasks,
@@ -49,7 +49,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{background: "#7851A9"}}>
         <h2>Welcome to your Todo App!</h2>
         <TodoList toggleTask={this.toggleTask} tasks={this.state.tasks} />
         <TodoForm
