@@ -4,7 +4,7 @@ class Todo extends React.Component {
     return (
       <div
         style={{
-          textDecoration: this.props.task.completed ? "line-through" : "    ",
+          textDecoration: this.props.task.completed ? "line-through" : "none",
         }}
         title={this.props.task.id}
         onClick={ev => {

@@ -5,7 +5,8 @@ class TodoList extends React.Component {
   render() {
     return (
       <form className="TodoForm">
-        <button onClick={this.props.clearCompleteTasks}>Update State</button>
+        <input type='text' value={this.props.formField} onChange={this.props.handleFormChange} /><button>Add!</button><br/>
+        <button onClick={this.props.clearCompleteTasks}>Clear Completed Tasks!</button>
       </form>
     );
   }
